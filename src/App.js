@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+import Peliculas from "./components/Peliculas";
+import VerPelicula from "./components/VerPelicula";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    return (
+        <Routes>
+            <Route path="/">
+                <Route index element={<Peliculas />} />
+                <Route path="/pelicula/:id" element={<VerPelicula />} />
+                {/* No existe la ruta */}
+                <Route path="*" element={<NoMatch />} />
+            </Route>
+        </Routes>
+    );
 }
 
-export default App;
+function NoMatch() {
+    return (
+        <div>
+            <h2>Solicitud incorrecta</h2>
+            <p>
+                <Link to="/">Volver a la pagina de inicio</Link>
+            </p>
+        </div>
+    );
+}
